@@ -2,12 +2,22 @@
 
 > **The sales intelligence agent that actually remembers. Built with a Hindsight-style local memory engine, ultra-fast Groq inference, and a premium React dashboard.**
 
+---
+
+## 💡 The Problem & The Vision
+
+In enterprise sales, deals take months to close. Critical details—like a client's specific budget anxiety, a competitor's stealth move, or a casual mention of a preferred timeline—are often lost in the noise of a busy pipeline. This is the **"Memory Gap"** that leads to stalled deals and lost revenue.
+
+**DealMind AI** is our solution. It's not just another AI chatbot; it's a memory-augmented companion that mimics human "Hindsight." By synthesizing every past interaction into a structured local memory bank, DealMind provides sales agents with instant, context-aware intelligence that gets smarter as the deal matures.
+
+---
+
+## ✨ Features
+
 ![Python](https://img.shields.io/badge/Python-FastAPI-009688?style=flat-square)
 ![React](https://img.shields.io/badge/Frontend-React%20%2b%20Vite-61DAFB?style=flat-square)
 ![Memory](https://img.shields.io/badge/Memory-Hindsight--style-blueviolet?style=flat-square)
 ![LLM](https://img.shields.io/badge/LLM-Groq-orange?style=flat-square)
-
----
 
 ## ✨ Features
 
