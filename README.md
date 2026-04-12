@@ -1,138 +1,96 @@
-# 🧠 DealMind AI — Sales Intelligence Agent with Memory
+# 🧠 DealMind AI — Memory-Augmented Sales Intelligence
 
-> **AI agent that remembers every interaction, learns over time, and provides increasingly intelligent sales insights.**
+> **The sales intelligence agent that actually remembers. Built with a Hindsight-style local memory engine, ultra-fast Groq inference, and a premium React dashboard.**
 
 ![Python](https://img.shields.io/badge/Python-FastAPI-009688?style=flat-square)
+![React](https://img.shields.io/badge/Frontend-React%20%2b%20Vite-61DAFB?style=flat-square)
 ![Memory](https://img.shields.io/badge/Memory-Hindsight--style-blueviolet?style=flat-square)
 ![LLM](https://img.shields.io/badge/LLM-Groq-orange?style=flat-square)
 
 ---
 
-## ✨ What It Does
+## ✨ Features
 
-DealMind AI is a **memory-augmented sales intelligence agent** that:
-- 🔗 **Remembers** every past conversation using Hindsight-style memory (retain/recall/reflect)
-- 📈 **Learns** patterns across deals, objections, and competitor situations
-- 🎯 **Improves** responses progressively — watch the learning indicator evolve
-- 💡 **Reflects** on accumulated knowledge to synthesize strategic insights
+DealMind AI is designed for high-performance sales teams who need an agent that grows smarter with every call.
+
+- 🧠 **Memory Engine**: Uses a local `retain`/`recall`/`reflect` architecture. It doesn't just store logs; it understands context and evolves its "Persona" over time.
+- ⚡ **Seamless CRM Automation**: Automatically extracts deal stages, objections, and sentiment from chat context—updating the SQLite database without manual entry.
+- 📋 **Strategic Dossiers**: Generates deep-dive strategic briefings and objection-handling playbooks based on your unique conversation history with a client.
+- 📊 **Real-time Pipeline**: A premium dark-mode dashboard providing instant visibility into deal value, win probability, and memory depth.
 
 ## 🏗️ Architecture
 
-```
-Frontend (HTML/CSS/JS)          Backend (FastAPI)
-┌────────────────────┐          ┌──────────────────────┐
-│ Chat UI            │◄────────►│ Agent Orchestrator   │
-│ Memory Panel       │  REST    │ Memory Engine        │
-│ Deal Dashboard     │  API     │ Groq LLM Service     │
-│ Reflection Modal   │          │ Deal Manager (SQLite) │
-└────────────────────┘          └──────────────────────┘
+```mermaid
+graph LR
+    UI[React Premium UI] <--> API[FastAPI Backend]
+    API <--> Memory[Hindsight Memory Engine]
+    API <--> LLM[Groq Llama 3]
+    API <--> DB[(SQLite Deal Store)]
 ```
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 1. Prerequisites
 - Python 3.10+
-- A free [Groq API key](https://console.groq.com)
+- Node.js 18+ (for frontend development)
+- A [Groq API Key](https://console.groq.com)
 
-### 1. Clone & Setup
+### 2. Backend Setup
 ```bash
-cd "Hack with Chennai"
-
-# Create .env file
-copy .env.example .env
-# Edit .env and add your GROQ_API_KEY
-
-# Install dependencies
 cd backend
 pip install -r requirements.txt
-```
-
-### 2. Run Backend
-```bash
-cd backend
+# Create .env and add GROQ_API_KEY
 python main.py
 ```
-Backend starts at `http://localhost:8000` (Swagger docs at `/docs`)
+The server will start at `http://localhost:8000`.
 
-### 3. Open Frontend
-Just open `frontend/index.html` in your browser. That's it — no build step needed!
+### 3. Frontend Setup (Development)
+The backend automatically serves the production build. To run in development mode:
+```bash
+cd "DealMind AI Web App UI"
+npm install
+npm run dev
+```
 
 ---
 
-## 🧪 Demo Script (60-Second Pitch)
+## 🧪 The "Wow" Demo Flow (60 Seconds)
 
-### Step 1: First Interaction (Cold Start → Context Building)
-> "What do you know about the TechNova deal?"
-
-The agent pulls from pre-seeded memories — showing it remembers past interactions about pricing pushback and the pilot program suggestion.
-
-### Step 2: Problem Solving (Memory-Augmented Intelligence)
-> "Sarah Chen is pushing back on pricing. How should I handle this?"
-
-The agent recalls the specific TechNova pricing objection from memory AND cross-references the general objection pattern insight to give a strategic, contextual answer.
-
-### Step 3: Cross-Deal Intelligence
-> "Compare our competitive position against Salesforce for Retail Dynamics"
-
-Watch the agent synthesize knowledge from the Retail Dynamics competitive situation AND the learned insight that "Salesforce deals are won on TCO, not features."
-
-### Step 4: Reflection (The Wow Moment)
-Click **Reflect** → "What patterns do you see across all our deals?"
-
-The agent uses the `reflect` operation to analyze all stored memories and produce a synthesized strategic analysis.
-
-**Key demo points for judges:**
-- 🧠 learning indicator in the top bar evolves from Cold Start → Expert
-- 🔗 Memory badges on each message show how many memories influenced the response
-- 📊 Memory panel on the right shows real-time memory accumulation
+1. **Cold Start**: Start a new chat. The indicator shows `🧊 Cold Start`. Ask: *"What do we have in the pipeline?"*
+2. **Context Recall**: Select **TechNova** from the sidebar. Ask: *"What's the status here?"* The agent recalls pre-seeded memories about pricing pushback.
+3. **Seamless CRM Update**: Chat: *"I just talked to Sarah from TechNova. They love the pilot but mentioned a strict $100k budget cap."*
+   - Observe the **Brain Feed** bar: `Updating Deal Metadata...`
+   - Refresh or check the sidebar: The "Budget Cap" objection is now automatically saved!
+4. **The Dossier**: Click **View Dossier**. The agent generates a markdown brief synthesizing the new budget constraint into a negotiation strategy.
+5. **Reflection**: Click **Reflect**. The agent analyzes all stored memories to find cross-deal patterns (e.g., "Competitor X is being mentioned in 40% of deals").
 
 ---
 
 ## 📂 Project Structure
 
 ```
-├── .env.example           # Environment variable template
-├── README.md              # This file
 ├── backend/
-│   ├── main.py            # FastAPI server (12 endpoints)
-│   ├── agent.py           # Core orchestrator (recall → generate → store)
-│   ├── memory_service.py  # Hindsight-style memory engine
-│   ├── llm_service.py     # Groq LLM wrapper
-│   ├── deal_manager.py    # SQLite deal CRUD
-│   ├── seed_data.py       # Sample deals & memories
-│   ├── config.py          # Pydantic settings
-│   └── requirements.txt   # Python dependencies
-└── frontend/
-    ├── index.html          # Three-panel layout
-    ├── style.css           # Premium dark-mode design
-    └── app.js              # Frontend application logic
+│   ├── main.py            # FastAPI server (Serves static files & API)
+│   ├── agent.py           # Core orchestrator (CRM automation + Memory)
+│   ├── memory_service.py  # TF-IDF based Memory Engine with Temporal Decay
+│   ├── llm_service.py     # Groq LLM inference pipelines
+│   └── deal_manager.py    # SQLite database wrapper
+├── DealMind AI Web App UI/
+│   ├── src/               # React application source
+│   └── dist/              # Production build (served by backend)
+└── .env                   # API Keys and configuration
 ```
-
-## 🧠 Memory System Deep Dive
-
-The memory engine implements three operations mirroring the [Hindsight](https://github.com/vectorize-io/hindsight) API:
-
-| Operation | What it does | When it's used |
-|-----------|-------------|----------------|
-| **retain()** | Stores a memory with type + metadata | After every chat interaction |
-| **recall()** | Retrieves relevant memories via TF-IDF similarity | Before generating each response |
-| **reflect()** | Synthesizes insights across memories | On-demand via Reflect button |
-
-Memory types:
-- **Experience** — past conversation interactions
-- **World** — extracted facts (client info, competitor data)
-- **Opinion** — synthesized insights from reflection
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-|-----------|---------|
-| **FastAPI** | Async Python backend with auto-generated API docs |
-| **Groq** | Ultra-fast LLM inference (10x faster than OpenAI) |
-| **Hindsight-style Memory** | Structured retain/recall/reflect memory engine |
-| **SQLite** | Zero-config deal database |
-| **Vanilla HTML/CSS/JS** | Zero-build frontend — just open and go |
+| Layer | Technology |
+|---|---|
+| **Backend** | Python / FastAPI / Pydantic |
+| **LLM** | Groq (Llama 3 70B / 8B) |
+| **Frontend** | React / Vite / Tailwind / Shadcn UI |
+| **Logic** | Custom Hindsight-style Memory Implementation |
+| **Database** | SQLite (Deals) / Local JSON (Memories) |
 
 ---
 
-*Built for hackathon by the DealMind team* 🚀
+*Built for the RecallIQ Hackathon* 🚀
