@@ -1,0 +1,109 @@
+{
+  "4a6f5387-bd96-46b0-b454-6c040e625b8b": {
+    "id": "4a6f5387-bd96-46b0-b454-6c040e625b8b",
+    "name": "deal-intelligence-agent",
+    "background": "An AI sales intelligence agent that remembers all past interactions.",
+    "memories": [
+      {
+        "id": "125ecbd2-fb73-45ca-b461-3afd722d38b0",
+        "content": "User asked: Sarah Chen from TechNova pushed back on our pricing \u2014 says it's 30% above budget. Agent responded: Suggested value-based reframing \u2014 focus on ROI per seat, offer pilot program for 50 seats at reduced rate to prove value before full deployment.",
+        "memory_type": "experience",
+        "metadata": {
+          "deal": "TechNova Solutions"
+        },
+        "timestamp": 1775987874.8889134,
+        "created_at": "2026-04-12T15:27:54.888913"
+      },
+      {
+        "id": "f114a57d-2931-4788-b662-bef3e1251197",
+        "content": "User asked: Marcus at Retail Dynamics is comparing us to Salesforce. What should I do? Agent responded: Recommended highlighting our retail-specific features, faster implementation (6 weeks vs 6 months), and lower TCO. Suggested arranging a call with our Retail Dynamics reference customer.",
+        "memory_type": "experience",
+        "metadata": {
+          "deal": "Retail Dynamics Inc"
+        },
+        "timestamp": 1775987874.8909037,
+        "created_at": "2026-04-12T15:27:54.890904"
+      },
+      {
+        "id": "d00c96b2-2a18-4ff5-ba7d-aeea8f06d8f6",
+        "content": "User asked: Priya from FinEdge is concerned about data compliance. Agent responded: Recommended sharing our SOC2 Type II certification, offering a security review session with our CISO, and providing the compliance documentation package.",
+        "memory_type": "experience",
+        "metadata": {
+          "deal": "FinEdge Capital"
+        },
+        "timestamp": 1775987874.8923142,
+        "created_at": "2026-04-12T15:27:54.892314"
+      },
+      {
+        "id": "cd91293c-36b5-49b8-884d-894bc25f2a76",
+        "content": "User asked: How do I handle a prospect who keeps delaying the decision? Agent responded: Advised creating urgency through limited-time pilot pricing, identifying the hidden blocker (often internal politics), and suggesting a 'mini-commitment' approach \u2014 get agreement on a smaller scope first.",
+        "memory_type": "experience",
+        "metadata": {
+          "deal": "general"
+        },
+        "timestamp": 1775987874.8944385,
+        "created_at": "2026-04-12T15:27:54.894439"
+      },
+      {
+        "id": "b33cdc01-d74c-4cc2-8e5c-b712b5f71ebc",
+        "content": "User asked: We just closed the CloudFirst Media deal! Agent responded: Congratulations! Recommended documenting the winning strategy for future reference \u2014 key factors were: strong executive sponsorship, custom demo tailored to media workflows, and competitive displacement during contract renewal window.",
+        "memory_type": "experience",
+        "metadata": {
+          "deal": "CloudFirst Media"
+        },
+        "timestamp": 1775987874.8991516,
+        "created_at": "2026-04-12T15:27:54.899152"
+      },
+      {
+        "id": "ebc1396a-4be1-4c2d-a450-32509ba93d93",
+        "content": "TechNova Solutions has 500 employees, $50M annual revenue, headquartered in Austin, TX. VP of Engineering (Sarah Chen's boss) is the final decision maker.",
+        "memory_type": "world",
+        "metadata": {
+          "source": "extracted_fact"
+        },
+        "timestamp": 1775987874.900742,
+        "created_at": "2026-04-12T15:27:54.900742"
+      },
+      {
+        "id": "0555dbf1-6661-4063-aec9-9d3f24b61d63",
+        "content": "Retail Dynamics Inc operates 50 retail locations across the Midwest. Currently using Salesforce but unhappy with customization costs. Contract renewal coming up in Q3.",
+        "memory_type": "world",
+        "metadata": {
+          "source": "extracted_fact"
+        },
+        "timestamp": 1775987874.902982,
+        "created_at": "2026-04-12T15:27:54.902982"
+      },
+      {
+        "id": "1193c5e4-2856-4683-846c-89a1498420fa",
+        "content": "Common objection pattern: pricing concerns appear in 70% of enterprise deals. Most effective counter-strategy is value-based selling with ROI calculator.",
+        "memory_type": "world",
+        "metadata": {
+          "source": "objection_tracking"
+        },
+        "timestamp": 1775987874.9064107,
+        "created_at": "2026-04-12T15:27:54.906411"
+      },
+      {
+        "id": "529eec0f-4a30-4a33-a019-8b7a60deb005",
+        "content": "Based on past interactions, deals in the 'negotiation' stage with pricing objections have a 60% close rate when we offer a pilot program, versus 25% with straight discounting.",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "self_reflection"
+        },
+        "timestamp": 1775987874.9092114,
+        "created_at": "2026-04-12T15:27:54.909211"
+      },
+      {
+        "id": "be17be26-6dad-4a6e-81e1-a32a3b17fdd6",
+        "content": "Competitive deals against Salesforce are best won by emphasizing implementation speed and total cost of ownership rather than feature comparison.",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "self_reflection"
+        },
+        "timestamp": 1775987874.911179,
+        "created_at": "2026-04-12T15:27:54.911179"
+      }
+    ]
+  }
+}

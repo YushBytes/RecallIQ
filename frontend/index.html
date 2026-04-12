@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DealMind AI — Sales Intelligence Agent</title>
+    <meta name="description" content="AI-powered sales intelligence agent with Hindsight memory — remembers, learns, and evolves.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="topbar">
+        <div class="topbar-brand">
+            <span class="brand-icon">🧠</span>
+            <span class="brand-name">DealMind<span class="brand-ai">AI</span></span>
+        </div>
+        <div class="topbar-center">
+            <div class="learning-indicator" id="learningIndicator">
+                <span class="learning-dot"></span>
+                <span class="learning-text">Initializing...</span>
+            </div>
+        </div>
+        <div class="topbar-actions">
+            <button class="btn-icon" id="btnReflect" title="Trigger Reflection">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                Reflect
+            </button>
+            <button class="btn-icon btn-danger" id="btnReset" title="Reset Demo Data">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                Reset
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Layout -->
+    <main class="app-layout">
+        <!-- Left Panel: Deals Dashboard -->
+        <aside class="panel panel-deals" id="dealsPanel">
+            <div class="panel-header">
+                <h2>📊 Deal Pipeline</h2>
+                <div class="pipeline-stats" id="pipelineStats"></div>
+            </div>
+            <div class="deals-list" id="dealsList"></div>
+        </aside>
+
+        <!-- Center: Chat -->
+        <section class="panel panel-chat">
+            <div class="chat-header">
+                <h2>💬 Chat with DealMind</h2>
+                <span class="chat-subtitle">Memory-augmented sales intelligence</span>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <div class="welcome-icon">🧠</div>
+                    <h3>Welcome to DealMind AI</h3>
+                    <p>I'm your sales intelligence agent with persistent memory. I remember every interaction and get smarter over time.</p>
+                    <div class="welcome-suggestions">
+                        <button class="suggestion-chip" onclick="sendSuggestion('What do you know about the TechNova deal?')">TechNova deal status?</button>
+                        <button class="suggestion-chip" onclick="sendSuggestion('Sarah Chen is pushing back on pricing. How should I handle this?')">Handle pricing objection</button>
+                        <button class="suggestion-chip" onclick="sendSuggestion('Compare our competitive position against Salesforce for Retail Dynamics')">Salesforce competition</button>
+                        <button class="suggestion-chip" onclick="sendSuggestion('What are the top objections across my deals and how should I address them?')">Analyze all objections</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <textarea id="chatInput" placeholder="Ask about deals, objections, strategy..." rows="1"></textarea>
+                    <button class="btn-send" id="btnSend">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Panel: Memory -->
+        <aside class="panel panel-memory" id="memoryPanel">
+            <div class="panel-header">
+                <h2>🧠 Memory Bank</h2>
+                <div class="memory-stats" id="memoryStats"></div>
+            </div>
+            <div class="memory-filters">
+                <button class="filter-chip active" data-type="all">All</button>
+                <button class="filter-chip" data-type="experience">Experiences</button>
+                <button class="filter-chip" data-type="world">Facts</button>
+                <button class="filter-chip" data-type="opinion">Insights</button>
+            </div>
+            <div class="memory-list" id="memoryList"></div>
+        </aside>
+    </main>
+
+    <!-- Reflection Modal -->
+    <div class="modal-overlay" id="reflectionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>🔮 Agent Reflection</h3>
+                <button class="modal-close" onclick="closeReflectionModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="reflect-input-group">
+                    <input type="text" id="reflectInput" placeholder="What should I reflect on? e.g., 'pricing objection patterns'" />
+                    <button class="btn-primary" id="btnDoReflect">Reflect</button>
+                </div>
+                <div class="reflect-result" id="reflectResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
