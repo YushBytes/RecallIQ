@@ -19,8 +19,6 @@ In enterprise sales, deals take months to close. Critical details—like a clien
 ![Memory](https://img.shields.io/badge/Memory-Hindsight--style-blueviolet?style=flat-square)
 ![LLM](https://img.shields.io/badge/LLM-Groq-orange?style=flat-square)
 
-## ✨ Features
-
 DealMind AI is designed for high-performance sales teams who need an agent that grows smarter with every call.
 
 - 🧠 **Memory Engine**: Uses a local `retain`/`recall`/`reflect` architecture. It doesn't just store logs; it understands context and evolves its "Persona" over time.
@@ -31,7 +29,7 @@ DealMind AI is designed for high-performance sales teams who need an agent that 
 ## 🏗️ Architecture
 
 ```mermaid
-graph LR
+flowchart LR
     UI[React Premium UI] <--> API[FastAPI Backend]
     API <--> Memory[Hindsight Memory Engine]
     API <--> LLM[Groq Llama 3]
