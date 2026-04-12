@@ -14,9 +14,10 @@ import json
 import re
 from typing import Optional
 
+import asyncio
 from memory_service import memory_engine, HindsightMemoryEngine
-from llm_service import generate_response, generate_reflection
-from deal_manager import get_all_deals, update_deal
+from llm_service import generate_response, generate_reflection, extract_structured_facts, summarize_context, generate_dossier
+from deal_manager import get_all_deals, update_deal, get_deal
 
 
 BANK_NAME = "deal-intelligence-agent"
@@ -60,9 +61,9 @@ def _get_bank() -> str:
 def _build_memory_context(bank_id: str, query: str) -> tuple[str, list[dict]]:
     """
     Build memory context string and return relevant memories.
-    This is where the 'learning over time' magic happens.
+    Uses Context Window Management via Summary Buffering.
     """
-    memories = memory_engine.recall(bank_id, query, top_k=5)
+    memories = memory_engine.recall(bank_id, query, top_k=10)
     stats = memory_engine.get_stats(bank_id)
 
     if not memories:
@@ -73,18 +74,16 @@ def _build_memory_context(bank_id: str, query: str) -> tuple[str, list[dict]]:
             [],
         )
 
+    # Condense memories into a summary
+    context_paragraph = summarize_context(memories, query)
+
     # Build rich context from memories
     context_parts = [
         f"\n## Memory Status: {stats['total']} memories stored",
         f"Memory depth: {'Deep' if stats['total'] > 15 else 'Growing' if stats['total'] > 5 else 'Building'}",
-        "\n### Relevant Past Interactions:",
+        "\n### Relevant Context (Summarized from Past Interactions):",
+        context_paragraph
     ]
-
-    for i, mem in enumerate(memories, 1):
-        score = mem.get("relevance_score", 0)
-        context_parts.append(
-            f"{i}. [{mem['memory_type'].upper()}] (relevance: {score:.0%}) {mem['content']}"
-        )
 
     context = "\n".join(context_parts)
     return context, memories
@@ -168,8 +167,18 @@ async def chat(
     # Also extract and store key facts as 'world' memories
     _extract_and_store_facts(bank_id, user_message, response_text)
 
-    # 5. COMPUTE learning level
+    # 5. CRM AUTOMATION — update deal metadata if in a deal context
+    if deal_id:
+        await _apply_automated_deal_updates(deal_id, user_message)
+
+    # 5. COMPUTE learning level and trigger meta-strategies
     stats = memory_engine.get_stats(bank_id)
+    experiences_count = stats.get("by_type", {}).get("experience", 0)
+    
+    # Trigger reflection every 5 experiences
+    if experiences_count > 0 and experiences_count % 5 == 0:
+        asyncio.create_task(reflect_on_topic("Analyze recent interactions and update meta-strategy playbook guidelines."))
+
     total = stats["total"]
     if total <= 3:
         learning_level = "cold_start"
@@ -193,40 +202,69 @@ async def chat(
     }
 
 
+async def _apply_automated_deal_updates(deal_id: str, user_message: str):
+    """
+    Predict and apply CRM updates based on the latest user interaction.
+    """
+    try:
+        deal = get_deal(deal_id)
+        if not deal:
+            return
+
+        json_str = extract_deal_updates(user_message)
+        updates = json.loads(json_str)
+
+        new_values = {}
+
+        # 1. suggested_stage
+        suggested_stage = updates.get("suggested_stage")
+        if suggested_stage and suggested_stage != "null":
+            new_values["stage"] = suggested_stage
+
+        # 2. new_objections (merge with existing)
+        new_objections = updates.get("new_objections", [])
+        if new_objections:
+            existing = deal.get("objections", [])
+            merged = list(set(existing + new_objections))
+            new_values["objections"] = merged
+
+        # 3. win_probability_delta
+        delta = updates.get("win_probability_delta", 0)
+        if delta != 0:
+            current_prob = deal.get("win_probability", 0.5)
+            new_prob = max(0.01, min(0.99, current_prob + delta))
+            new_values["win_probability"] = new_prob
+
+        if new_values:
+            print(f"[*] Seamless Update [Deal {deal_id}]: {new_values}")
+            update_deal(deal_id, **new_values)
+
+    except Exception as e:
+        print(f"CRM automation failed: {e}")
+
+
 def _extract_and_store_facts(bank_id: str, user_message: str, response: str):
     """
     Extract factual information from the conversation and store as 'world' memories.
-    This builds the agent's knowledge base beyond just interaction history.
+    Uses LLM for structured fact extraction.
     """
-    # Simple heuristic extraction — look for key patterns
-    message_lower = user_message.lower()
-
-    # Client/company mentions
-    if any(word in message_lower for word in ["client", "customer", "company", "prospect"]):
-        memory_engine.retain(
-            memory_bank_id=bank_id,
-            content=f"Deal context mentioned: {user_message[:200]}",
-            memory_type="world",
-            metadata={"source": "extracted_fact"},
-        )
-
-    # Objection patterns
-    if any(word in message_lower for word in ["objection", "concern", "pushback", "hesitant", "worried", "expensive", "budget"]):
-        memory_engine.retain(
-            memory_bank_id=bank_id,
-            content=f"Objection encountered: {user_message[:200]}",
-            memory_type="world",
-            metadata={"source": "objection_tracking"},
-        )
-
-    # Competitor mentions
-    if any(word in message_lower for word in ["competitor", "alternative", "vs", "compared to", "salesforce", "hubspot"]):
-        memory_engine.retain(
-            memory_bank_id=bank_id,
-            content=f"Competitive intelligence: {user_message[:200]}",
-            memory_type="world",
-            metadata={"source": "competitive_intel"},
-        )
+    try:
+        # Re-using the simplified fact extraction for basic attributes
+        from llm_service import extract_deal_updates
+        json_str = extract_deal_updates(user_message)
+        updates = json.loads(json_str)
+        
+        # Store sentiment as a memory if notable
+        sentiment = updates.get("sentiment")
+        if sentiment:
+            memory_engine.retain(
+                memory_bank_id=bank_id,
+                content=f"Client sentiment detected as {sentiment}",
+                memory_type="opinion",
+                metadata={"source": "llm_extraction", "sentiment": sentiment}
+            )
+    except Exception as e:
+        print(f"Fact extraction failed: {e}")
 
 
 async def reflect_on_topic(query: str) -> dict:
@@ -264,4 +302,24 @@ async def reflect_on_topic(query: str) -> dict:
         "memories_analyzed": reflection_data["memories_used"],
         "total_memories": stats["total"],
         "memories": reflection_data["memories"],
+    }
+
+
+async def generate_strategic_dossier(deal_id: str) -> dict:
+    """
+    Generate a formatted strategic dossier for a specific deal based on memories.
+    """
+    deal = get_deal(deal_id)
+    if not deal:
+        raise ValueError(f"Deal {deal_id} not found")
+        
+    bank_id = _get_bank()
+    query = f"{deal['client_name']} {deal.get('company', '')}"
+    memories = memory_engine.recall(bank_id, query, top_k=20)
+    
+    dossier_text = generate_dossier(deal, memories)
+    
+    return {
+        "dossier": dossier_text,
+        "memories_used": len(memories)
     }

@@ -10,6 +10,7 @@ Endpoints:
   POST /api/deals          — Create a new deal
   PUT  /api/deals/{id}     — Update a deal
   GET  /api/deals/stats    — Pipeline analytics
+  GET  /api/briefing/{id}  — Generate a Strategic Dossier for a deal
   POST /api/seed           — Re-seed sample data
   POST /api/reset          — Reset all data (for demo restarts)
   GET  /               — Serves the frontend UI
@@ -66,7 +67,7 @@ app.add_middleware(
 )
 
 # Serve frontend static files
-FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
+FRONTEND_DIR = Path(__file__).parent.parent / "DealMind AI Web App UI" / "dist"
 
 
 @app.get("/")
@@ -75,8 +76,9 @@ async def serve_frontend():
     return FileResponse(str(FRONTEND_DIR / "index.html"))
 
 
-# Mount static files (CSS, JS)
-app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
+# Mount static files (assets for Vite build)
+if (FRONTEND_DIR / "assets").exists():
+    app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIR / "assets")), name="assets")
 
 
 
@@ -224,6 +226,17 @@ async def update_deal_endpoint(deal_id: str, req: DealUpdateRequest):
     if not deal:
         raise HTTPException(404, "Deal not found")
     return deal
+
+
+@app.get("/api/briefing/{deal_id}")
+async def generate_briefing(deal_id: str):
+    """Generate a one-page Strategic Dossier for a deal."""
+    try:
+        return await agent.generate_strategic_dossier(deal_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        raise HTTPException(500, f"Dossier error: {str(e)}")
 
 
 # ─── Utility Endpoints ───

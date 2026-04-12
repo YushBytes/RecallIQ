@@ -11,6 +11,7 @@ the real hindsight-api MemoryEngine interface.
 """
 
 import json
+import math
 import time
 import uuid
 from datetime import datetime
@@ -186,23 +187,44 @@ class HindsightMemoryEngine:
 
         # Compute similarity
         query_vec = bank._vectorizer.transform([query])
+        
+        current_time = time.time()
+        decay_rate = 0.05  # Decay factor per day
 
         # If we filtered by type, we need to get the right indices
         if memory_type:
             all_indices = [i for i, m in enumerate(bank.memories) if m.memory_type == memory_type]
             sub_matrix = bank._tfidf_matrix[all_indices]
-            similarities = cosine_similarity(query_vec, sub_matrix).flatten()
+            base_similarities = cosine_similarity(query_vec, sub_matrix).flatten()
+            
+            # Apply temporal decay
+            similarities = np.zeros_like(base_similarities)
+            for j, idx in enumerate(all_indices):
+                mem = bank.memories[idx]
+                days_old = (current_time - mem.timestamp) / 86400.0
+                decay = math.exp(-days_old * decay_rate)
+                similarities[j] = base_similarities[j] * decay
+
             top_indices = np.argsort(similarities)[::-1][:top_k]
             results = []
-            for idx in top_indices:
-                if similarities[idx] > 0.01:  # minimum relevance threshold
-                    mem = memories[idx]
+            for j in top_indices:
+                if similarities[j] > 0.01:  # minimum relevance threshold
+                    mem = memories[j]
                     results.append({
                         **mem.to_dict(),
-                        "relevance_score": round(float(similarities[idx]), 4),
+                        "relevance_score": round(float(similarities[j]), 4),
+                        "base_score": round(float(base_similarities[j]), 4)
                     })
         else:
-            similarities = cosine_similarity(query_vec, bank._tfidf_matrix).flatten()
+            base_similarities = cosine_similarity(query_vec, bank._tfidf_matrix).flatten()
+            
+            # Apply temporal decay
+            similarities = np.zeros_like(base_similarities)
+            for idx, mem in enumerate(bank.memories):
+                days_old = (current_time - mem.timestamp) / 86400.0
+                decay = math.exp(-days_old * decay_rate)
+                similarities[idx] = base_similarities[idx] * decay
+                
             top_indices = np.argsort(similarities)[::-1][:top_k]
             results = []
             for idx in top_indices:
@@ -211,6 +233,7 @@ class HindsightMemoryEngine:
                     results.append({
                         **mem.to_dict(),
                         "relevance_score": round(float(similarities[idx]), 4),
+                        "base_score": round(float(base_similarities[idx]), 4)
                     })
 
         return results
