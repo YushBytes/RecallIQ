@@ -29,28 +29,46 @@ DealMind AI is designed for high-performance sales teams who need an agent that 
 ## 🏗️ Architecture
 
 ```text
-       ┌──────────────────────────┐
-       │  React Premium Dashboard │
-       └────────────┬─────────────┘
-                    ▼
-       ┌──────────────────────────┐
-       │     FastAPI Backend      │
-       │     (Agent Logic)        │
-       └────────────┬─────────────┘
-          ┌─────────┴─────────┐
-          ▼                   ▼
-┌──────────────────┐ ┌──────────────────┐
-│ Hindsight Memory │ │  Groq Llama 3    │
-│ (Local Engine)   │ │  (AI Inference)  │
-└──────────────────┘ └──────────────────┘
-          │                   │
-          └─────────┬─────────┘
-                    ▼
-         ┌──────────────────┐
-         │ SQLite Database  │
-         │ (Deals & Stats)  │
-         └──────────────────┘
+                    ┌──────────────────────────────────┐
+                    │      PREMIUM REACT DASHBOARD     │
+                    │ (Pipeline, Chat, Dossiers, Memory)│
+                    └────────────────┬─────────────────┘
+                                     │
+                                     ▼ REST API
+                    ┌──────────────────────────────────┐
+                    │      FASTAPI AGENT ORCHESTRATOR  │
+                    │                                  │
+                    │  ┌───────────┐    ┌───────────┐  │
+                    │  │ Reasoning │    │  CRM Auto │  │
+                    │  │  Engine   │    │  Logic    │  │
+                    │  └─────┬─────┘    └─────┬─────┘  │
+                    └────────┼────────────────┼────────┘
+            ┌────────────────┴────────────────┴────────────────┐
+            ▼                                                  ▼
+┌──────────────────────────┐                      ┌──────────────────────────┐
+│ HINDSIGHT MEMORY ENGINE  │                      │   GROQ INFERENCE LAYER   │
+│                          │                      │                          │
+│ ┌───────┐   ┌─────────┐  │                      │ ┌────────┐   ┌─────────┐ │
+│ │TF-IDF │   │Temporal │  │ <──────────────────> │ │Llama 3 │   │Strategy │ │
+│ │Index  │   │Decay    │  │                      │ │ 70B    │   │Prompts  │ │
+│ └───────┘   └─────────┘  │                      │ └────────┘   └─────────┘ │
+└────────────┬─────────────┘                      └──────────────────────────┘
+             ▼
+┌──────────────────────────┐
+│      SQLITE / JSON       │
+│  (Deals, Facts, History) │
+└──────────────────────────┘
 ```
+
+### Component Breakdown
+| Layer | Responsibility |
+|---|---|
+| **Frontend** | React-based UI with real-time pipeline stats and dynamic feedback loops (Brain Feed). |
+| **Orchestrator** | Coordinates memory recall, LLM inference, and automated CRM record updates. |
+| **Memory Engine** | Local, high-performance TF-IDF vectorization for `retain`/`recall`/`reflect` operations. |
+| **Logic** | Specialized pipelines for Strategic Dossier generation and self-reflection analysis. |
+| **Inference** | Ultra-speed Groq Llama 3 70B endpoints for sub-second agent reasoning. |
+| **Persistence** | Multi-modal storage using SQLite for relational data and JSON for vectorizable memories. |
 
 ## 🚀 Quick Start
 
