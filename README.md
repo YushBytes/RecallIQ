@@ -28,12 +28,28 @@ DealMind AI is designed for high-performance sales teams who need an agent that 
 
 ## 🏗️ Architecture
 
-```mermaid
-graph TD
-    UI[React Premium UI] <--> API[FastAPI Backend]
-    API <--> MEM[Hindsight Memory Engine]
-    API <--> AI[Groq Llama 3]
-    API <--> DB[(SQLite Deal Store)]
+```text
+       ┌──────────────────────────┐
+       │  React Premium Dashboard │
+       └────────────┬─────────────┘
+                    ▼
+       ┌──────────────────────────┐
+       │     FastAPI Backend      │
+       │     (Agent Logic)        │
+       └────────────┬─────────────┘
+          ┌─────────┴─────────┐
+          ▼                   ▼
+┌──────────────────┐ ┌──────────────────┐
+│ Hindsight Memory │ │  Groq Llama 3    │
+│ (Local Engine)   │ │  (AI Inference)  │
+└──────────────────┘ └──────────────────┘
+          │                   │
+          └─────────┬─────────┘
+                    ▼
+         ┌──────────────────┐
+         │ SQLite Database  │
+         │ (Deals & Stats)  │
+         └──────────────────┘
 ```
 
 ## 🚀 Quick Start
