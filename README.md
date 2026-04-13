@@ -3,6 +3,8 @@
 > **The sales intelligence agent that actually remembers. Built with a Hindsight-style local memory engine, ultra-fast Groq inference, and a premium React dashboard.**
 
 ---
+![WhatsApp Image 2026-04-12 at 22 52 41](https://github.com/user-attachments/assets/13ff3005-bb29-486d-9102-dc334ead101c)
+
 
 ## 💡 The Problem & The Vision
 
