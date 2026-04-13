@@ -16,7 +16,7 @@ from typing import Optional
 
 import asyncio
 from memory_service import memory_engine, HindsightMemoryEngine
-from llm_service import generate_response, generate_reflection, extract_structured_facts, summarize_context, generate_dossier
+from llm_service import generate_response, generate_reflection, extract_deal_updates, summarize_context, generate_dossier
 from deal_manager import get_all_deals, update_deal, get_deal
 
 

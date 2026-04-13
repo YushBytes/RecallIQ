@@ -103,6 +103,304 @@
         },
         "timestamp": 1775987874.911179,
         "created_at": "2026-04-12T15:27:54.911179"
+      },
+      {
+        "id": "aa954bca-2619-4dc8-8666-70bb2c1f22ec",
+        "content": "User asked: What do you know about the TechNova deal?\nAgent responded: The TechNova deal. Based on our previous discussions, I recall that TechNova is a company headquartered in Austin, TX, with 500 employees and $50M in annual revenue. Sarah Chen is our primary point of contact, and she has expressed concerns about the pricing of our solution, stating it's 30% above t...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "What do you know about the TechNova deal?",
+          "deal_id": null,
+          "memories_recalled": 3
+        },
+        "timestamp": 1776097304.576363,
+        "created_at": "2026-04-13T21:51:44.576363"
+      },
+      {
+        "id": "0d633e6d-ae2d-490d-9656-277b22af3466",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776097305.4039733,
+        "created_at": "2026-04-13T21:51:45.403973"
+      },
+      {
+        "id": "942b01c4-7d46-4401-bc28-fe42eb0f9085",
+        "content": "User asked: tell me how to spend on inventory\nAgent responded: Let's dive into optimizing your inventory spend. Since we're starting from scratch, I'd love to learn more about your business. Can you tell me:\n\n1. What type of products do you sell (physical, digital, or a mix)?\n2. What's your average monthly sales revenue?\n3. Do you have any existing inventory ma...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "tell me how to spend on inventory",
+          "deal_id": null,
+          "memories_recalled": 0
+        },
+        "timestamp": 1776097391.4654412,
+        "created_at": "2026-04-13T21:53:11.465441"
+      },
+      {
+        "id": "d7d87759-6078-4cee-9127-0beec8b10b56",
+        "content": "Client sentiment detected as positive",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "positive"
+        },
+        "timestamp": 1776097391.7895117,
+        "created_at": "2026-04-13T21:53:11.789512"
+      },
+      {
+        "id": "c05ee19e-9064-4979-a6ac-5970d66156dd",
+        "content": "User asked: Hello\nAgent responded: Hello. I'm DealMind AI, your elite sales intelligence agent. I'm here to help you analyze deals, overcome objections, and close more sales. \n\nSince we're starting from scratch, I don't have any prior knowledge or context about your current sales situation. Let's begin by building some context. \n\nCan...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "Hello",
+          "deal_id": null,
+          "memories_recalled": 0
+        },
+        "timestamp": 1776098002.1833594,
+        "created_at": "2026-04-13T22:03:22.183359"
+      },
+      {
+        "id": "223973b2-954b-4c88-ac26-2acd5ee2e925",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098002.5615919,
+        "created_at": "2026-04-13T22:03:22.561592"
+      },
+      {
+        "id": "c08bfca7-f2f3-4c30-b59d-5a3fcd9d93d0",
+        "content": "User asked: How are you?\nAgent responded: I'm functioning within optimal parameters, thank you for asking. As a digital AI assistant, I don't have emotions or physical well-being like humans do, but I'm always ready to provide assistance and support to help you achieve your sales goals.\n\nNow, let's get down to business. I've taken a glance ...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "How are you?",
+          "deal_id": null,
+          "memories_recalled": 0
+        },
+        "timestamp": 1776098074.6911342,
+        "created_at": "2026-04-13T22:04:34.691134"
+      },
+      {
+        "id": "d018078f-fbc3-48c7-9bfc-7dc1a70eac98",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098075.484319,
+        "created_at": "2026-04-13T22:04:35.484319"
+      },
+      {
+        "id": "4938a72e-6c0f-41a1-b910-33e8813cd841",
+        "content": "User asked: Tell me more about TechNova Solutions\nAgent responded: TechNova Solutions. I recall that we have some context about this company from our previous interactions. TechNova Solutions is a company based in Austin, TX, with 500 employees and $50M in annual revenue. The VP of Engineering serves as the final decision maker, and Sarah Chen is the primary point ...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "Tell me more about TechNova Solutions",
+          "deal_id": null,
+          "memories_recalled": 4
+        },
+        "timestamp": 1776098155.467752,
+        "created_at": "2026-04-13T22:05:55.467752"
+      },
+      {
+        "id": "02d096c8-948d-4afb-95a9-9431535a0185",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098155.9998121,
+        "created_at": "2026-04-13T22:05:55.999812"
+      },
+      {
+        "id": "568821f1-35b8-4767-9423-97520d36dc67",
+        "content": "Reflection on 'Analyze recent interactions and update meta-strategy playbook guidelines.': Reflecting on recent interactions, I've synthesized the following key insights to update our meta-strategy playbook guidelines:\n\n1. **Establish context early**: Our initial interaction with the user highlighted the importance of building context from scratch. This emphasizes the need to include a \"c",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "self_reflection",
+          "query": "Analyze recent interactions and update meta-strategy playbook guidelines."
+        },
+        "timestamp": 1776098157.3786175,
+        "created_at": "2026-04-13T22:05:57.378618"
+      },
+      {
+        "id": "41df7a7e-add9-41f9-88a2-5587e719417a",
+        "content": "User asked: What do we know about Acme Corp?\nAgent responded: Acme Corp. Unfortunately, I don't have any prior knowledge or context about Acme Corp from our previous interactions. It's a completely new entity to me. \n\nAs a result, I don't have any information about their industry, company size, revenue, or any potential pain points they might be experiencing. ...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "What do we know about Acme Corp?",
+          "deal_id": null,
+          "memories_recalled": 1
+        },
+        "timestamp": 1776098412.4608426,
+        "created_at": "2026-04-13T22:10:12.460843"
+      },
+      {
+        "id": "b2554af4-b317-4395-8d3c-b62db110f9ea",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098412.7762003,
+        "created_at": "2026-04-13T22:10:12.776200"
+      },
+      {
+        "id": "a7ddb183-9955-4d3d-a0df-f9271125a7de",
+        "content": "User asked: What do we know about Acme Corp?\nAgent responded: We're starting fresh with Acme Corp. Unfortunately, I don't have any prior knowledge or context about the company from our previous interactions. I recall that we previously noted the lack of information about Acme Corp, and no new details have been added since then. \n\nTo better understand the situa...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "What do we know about Acme Corp?",
+          "deal_id": null,
+          "memories_recalled": 2
+        },
+        "timestamp": 1776098437.8045983,
+        "created_at": "2026-04-13T22:10:37.804598"
+      },
+      {
+        "id": "45434ee5-f821-4fc6-b8b1-549d0c598876",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098438.3142464,
+        "created_at": "2026-04-13T22:10:38.314246"
+      },
+      {
+        "id": "60b334da-2960-4899-98a0-0ff860f80384",
+        "content": "User asked: What do we know about Acme Corp?\nAgent responded: We're starting from scratch with Acme Corp. Unfortunately, I don't have any prior knowledge or context about the company from our previous interactions. I've checked my memory database, and there are no relevant details or insights stored about Acme Corp's industry, company size, revenue, or potenti...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "What do we know about Acme Corp?",
+          "deal_id": null,
+          "memories_recalled": 3
+        },
+        "timestamp": 1776098481.5421205,
+        "created_at": "2026-04-13T22:11:21.542120"
+      },
+      {
+        "id": "38b7fb3d-8ffb-41b5-a73a-96b2c1f18722",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098482.7200427,
+        "created_at": "2026-04-13T22:11:22.720043"
+      },
+      {
+        "id": "3b835479-f989-473e-8c76-f8fbedd68d4b",
+        "content": "User asked: What do we know about Acme Corp?\nAgent responded: We're starting from scratch with Acme Corp. Unfortunately, I don't have any relevant information or insights about the company from our previous interactions. I've checked my memory, and it's a blank slate when it comes to Acme Corp. \n\nTo better understand the context, can you please tell me a bit m...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "What do we know about Acme Corp?",
+          "deal_id": null,
+          "memories_recalled": 4
+        },
+        "timestamp": 1776098510.6349084,
+        "created_at": "2026-04-13T22:11:50.634908"
+      },
+      {
+        "id": "ea6816c0-0213-42d4-b2d8-033c41badd0a",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098510.927488,
+        "created_at": "2026-04-13T22:11:50.927488"
+      },
+      {
+        "id": "f8fc280c-d261-4e0e-b7c5-7f6449188184",
+        "content": "User asked: Test message for persistence\nAgent responded: This appears to be a new conversation, and I'm starting from a cold start with no prior memories. I'd like to begin by building some context. Can you tell me a bit about the deals you're currently working on and which one you'd like to focus on? Perhaps we can start with the one that's closest to cl...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "Test message for persistence",
+          "deal_id": null,
+          "memories_recalled": 0
+        },
+        "timestamp": 1776098717.5114038,
+        "created_at": "2026-04-13T22:15:17.511404"
+      },
+      {
+        "id": "527fba26-4dea-4bb8-a0d1-fe8e2652400b",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098717.7892895,
+        "created_at": "2026-04-13T22:15:17.789289"
+      },
+      {
+        "id": "95178796-8ae1-4296-9460-c5ec1225b1cf",
+        "content": "Reflection on 'Analyze recent interactions and update meta-strategy playbook guidelines.': Based on recent interactions and past experiences, I've synthesized the following key insights to update our meta-strategy playbook guidelines:\n\n1. **Establish context early**: Our initial interaction with the user highlighted the importance of building context from scratch. This emphasizes the need",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "self_reflection",
+          "query": "Analyze recent interactions and update meta-strategy playbook guidelines."
+        },
+        "timestamp": 1776098719.594794,
+        "created_at": "2026-04-13T22:15:19.594794"
+      },
+      {
+        "id": "4b22ec7e-a53e-4e5b-ac24-aaadb7806e37",
+        "content": "User asked: Test message for persistence\nAgent responded: I see you've sent a \"Test message for persistence\" again. I recall that we had a similar exchange earlier, and at that time, we were just starting our conversation with no prior context. It seems like we might be resetting or checking the persistence of our conversation.\n\nTo build on what we had sta...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "Test message for persistence",
+          "deal_id": null,
+          "memories_recalled": 1
+        },
+        "timestamp": 1776098761.3982236,
+        "created_at": "2026-04-13T22:16:01.398224"
+      },
+      {
+        "id": "bdbab912-87a5-4aaa-b4eb-e8b44efb612b",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098761.6761677,
+        "created_at": "2026-04-13T22:16:01.676168"
+      },
+      {
+        "id": "41dd5ba9-a111-4bb7-939a-60187e980e07",
+        "content": "User asked: Test message for persistence\nAgent responded: It looks like we're starting fresh again. I've noticed that you've sent a \"Test message for persistence\" before, and I'm assuming you're checking to see if our conversation can pick up where we left off. Unfortunately, it seems like our previous conversation has reset.\n\nLet's start anew. I've got a ...",
+        "memory_type": "experience",
+        "metadata": {
+          "user_message": "Test message for persistence",
+          "deal_id": null,
+          "memories_recalled": 2
+        },
+        "timestamp": 1776098833.0647273,
+        "created_at": "2026-04-13T22:17:13.064727"
+      },
+      {
+        "id": "2c1fb116-f8f4-4085-9974-512c7c1caf0f",
+        "content": "Client sentiment detected as neutral",
+        "memory_type": "opinion",
+        "metadata": {
+          "source": "llm_extraction",
+          "sentiment": "neutral"
+        },
+        "timestamp": 1776098833.347502,
+        "created_at": "2026-04-13T22:17:13.347502"
       }
     ]
   }

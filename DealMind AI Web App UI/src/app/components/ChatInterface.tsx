@@ -8,6 +8,7 @@ interface ChatInterfaceProps {
   messages: Message[];
   isTyping: boolean;
   onSendMessage: (text: string) => void;
+  onMemoryLinkClick: (ids: string[]) => void;
 }
 
 const suggestionChips = [
@@ -17,7 +18,7 @@ const suggestionChips = [
   "What competitor intelligence do you have?",
 ];
 
-export function ChatInterface({ messages, isTyping, onSendMessage }: ChatInterfaceProps) {
+export function ChatInterface({ messages, isTyping, onSendMessage, onMemoryLinkClick }: ChatInterfaceProps) {
   const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -118,10 +119,21 @@ export function ChatInterface({ messages, isTyping, onSendMessage }: ChatInterfa
                       dangerouslySetInnerHTML={{ __html: formatContent(message.content) }}
                     />
                     {message.type === "ai" && message.memoriesRecalled !== undefined && (
-                      <div className="mt-1.5 ml-1">
-                        <span style={{ fontSize: "11px", color: "#555" }}>
-                          🔗 recalled {message.memoriesRecalled} memories · {message.totalMemories} total
-                        </span>
+                      <div className="mt-2.5 ml-1">
+                        <button 
+                          onClick={() => message.recalledIds && onMemoryLinkClick(message.recalledIds)}
+                          className="flex items-center gap-1.5 px-2 py-1 rounded-md transition-all hover:bg-white/10 group"
+                          style={{ 
+                            fontSize: "11px", 
+                            color: "#8B5CF6", 
+                            cursor: "pointer", 
+                            background: "rgba(139, 92, 246, 0.05)", 
+                            border: "1px solid rgba(139, 92, 246, 0.2)", 
+                          }}
+                        >
+                          <span className="group-hover:scale-110 transition-transform">🔗</span>
+                          <span>recalled {message.memoriesRecalled} memories · {message.totalMemories} total</span>
+                        </button>
                       </div>
                     )}
                   </div>

@@ -27,6 +27,7 @@ export interface Message {
   timestamp: Date;
   memoriesRecalled?: number;
   totalMemories?: number;
+  recalledIds?: string[];
 }
 
 export default function App() {
@@ -51,6 +52,33 @@ export default function App() {
   const [isTyping, setIsTyping] = useState(false);
 
   const [currentDealId, setCurrentDealId] = useState<string | null>(null);
+
+  // ─── Persistence ───
+
+  useEffect(() => {
+    const savedMessages = localStorage.getItem("dealmind_messages");
+    const savedHistory = localStorage.getItem("dealmind_history");
+    
+    if (savedMessages) {
+      try {
+        const parsed = JSON.parse(savedMessages);
+        setMessages(parsed.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) })));
+      } catch (e) { console.error("Failed to parse saved messages", e); }
+    }
+    if (savedHistory) {
+      try { setConversationHistory(JSON.parse(savedHistory)); } catch (e) { console.error("Failed to parse saved history", e); }
+    }
+  }, []);
+
+  useEffect(() => {
+    // Only save if we have actual content (don't overwrite with empty arrays on initial mount/re-render)
+    if (messages.length > 0) {
+      localStorage.setItem("dealmind_messages", JSON.stringify(messages));
+    }
+    if (conversationHistory.length > 0) {
+      localStorage.setItem("dealmind_history", JSON.stringify(conversationHistory));
+    }
+  }, [messages, conversationHistory]);
 
   // ─── Load Data ───
 
@@ -127,6 +155,7 @@ export default function App() {
         timestamp: new Date(),
         memoriesRecalled: data.memories_used?.length || 0,
         totalMemories: data.memory_count,
+        recalledIds: data.memories_used?.map((m: Memory) => m.id) || [],
       };
       setMessages((prev) => [...prev, aiMessage]);
 
@@ -169,6 +198,13 @@ export default function App() {
     }
   };
 
+  const handleMemoryLinkClick = (ids: string[]) => {
+    setRecalledMemoryIds(new Set(ids));
+    setIsMemoryDrawerOpen(true);
+    // Keep them highlighted for a while
+    setTimeout(() => setRecalledMemoryIds(new Set()), 5000);
+  };
+
   // ─── Reset ───
 
   const handleReset = async () => {
@@ -176,6 +212,8 @@ export default function App() {
     await apiReset();
     setMessages([]);
     setConversationHistory([]);
+    localStorage.removeItem("dealmind_messages");
+    localStorage.removeItem("dealmind_history");
     deactivateBrainFeed("✅ Data reset and re-seeded successfully");
     loadMemories();
     loadDeals();
@@ -217,6 +255,7 @@ export default function App() {
           messages={messages}
           isTyping={isTyping}
           onSendMessage={handleSendMessage}
+          onMemoryLinkClick={handleMemoryLinkClick}
         />
 
         {/* Memory Drawer - Slide Over from Right */}
