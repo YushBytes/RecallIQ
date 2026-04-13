@@ -8,6 +8,7 @@ interface CollapsibleSidebarProps {
   onToggle: () => void;
   onMemoryClick: () => void;
   onDealClick: (deal: Deal) => void;
+  onSettingsClick: () => void;
   deals: Deal[];
   pipelineStats: PipelineStats;
 }
@@ -26,7 +27,7 @@ const getStageColor = (stage: string) => {
 };
 
 export function CollapsibleSidebar({
-  isExpanded, onToggle, onMemoryClick, onDealClick, deals, pipelineStats,
+  isExpanded, onToggle, onMemoryClick, onDealClick, onSettingsClick, deals, pipelineStats,
 }: CollapsibleSidebarProps) {
   const [hoveredDeal, setHoveredDeal] = useState<string | null>(null);
 
@@ -40,7 +41,7 @@ export function CollapsibleSidebar({
           backgroundColor: "#1C1C1E",
           borderColor: "rgba(255, 255, 255, 0.06)",
           position: "relative",
-          zIndex: 10,
+          zIndex: 45, // Above everything including the overlay and modal backdrops
         }}
       >
         <button
@@ -61,6 +62,7 @@ export function CollapsibleSidebar({
         </button>
         <div className="h-px w-6 mb-6" style={{ backgroundColor: "rgba(255, 255, 255, 0.06)" }} />
         <button
+          onClick={onSettingsClick}
           className="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:bg-white/5"
           style={{ color: "#8A8A8E" }}
           title="Settings"
@@ -78,7 +80,7 @@ export function CollapsibleSidebar({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/40 z-20"
+              className="fixed inset-0 bg-black/40 z-[35]"
               onClick={onToggle}
             />
 
@@ -88,7 +90,7 @@ export function CollapsibleSidebar({
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="fixed left-[56px] top-0 bottom-0 flex flex-col overflow-hidden z-30"
+              className="fixed left-[56px] top-0 bottom-0 flex flex-col overflow-hidden z-[40]"
               style={{
                 width: "280px",
                 backgroundColor: "#1C1C1E",

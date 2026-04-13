@@ -122,17 +122,23 @@ export function ChatInterface({ messages, isTyping, onSendMessage, onMemoryLinkC
                       <div className="mt-2.5 ml-1">
                         <button 
                           onClick={() => message.recalledIds && onMemoryLinkClick(message.recalledIds)}
-                          className="flex items-center gap-1.5 px-2 py-1 rounded-md transition-all hover:bg-white/10 group"
+                          className="flex items-center gap-1.5 px-2 py-1 rounded-md transition-all hover:bg-indigo-500/20 active:scale-95 group"
                           style={{ 
                             fontSize: "11px", 
                             color: "#8B5CF6", 
                             cursor: "pointer", 
-                            background: "rgba(139, 92, 246, 0.05)", 
-                            border: "1px solid rgba(139, 92, 246, 0.2)", 
+                            background: "rgba(139, 92, 246, 0.08)", 
+                            border: "1px solid rgba(139, 92, 246, 0.3)", 
                           }}
                         >
-                          <span className="group-hover:scale-110 transition-transform">🔗</span>
-                          <span>recalled {message.memoriesRecalled} memories · {message.totalMemories} total</span>
+                          <motion.span 
+                            animate={{ scale: [1, 1.2, 1] }} 
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="group-hover:scale-110 transition-transform"
+                          >
+                            🔗
+                          </motion.span>
+                          <span className="font-medium">recalled {message.memoriesRecalled} memories · {message.totalMemories} total</span>
                         </button>
                       </div>
                     )}

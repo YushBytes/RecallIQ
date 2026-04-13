@@ -7,6 +7,7 @@ import { MemoryDrawer } from "./components/MemoryDrawer";
 import { ReflectModal } from "./components/ReflectModal";
 import { PersonaModal } from "./components/PersonaModal";
 import { DossierModal } from "./components/DossierModal";
+import { SettingsModal } from "./components/SettingsModal";
 import {
   apiChat,
   apiGetMemories,
@@ -31,7 +32,7 @@ export interface Message {
 }
 
 export default function App() {
-  const [activeModal, setActiveModal] = useState<"reflect" | "persona" | "dossier" | null>(null);
+  const [activeModal, setActiveModal] = useState<"reflect" | "persona" | "dossier" | "settings" | null>(null);
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [conversationHistory, setConversationHistory] = useState<{ role: string; content: string }[]>([]);
@@ -62,7 +63,11 @@ export default function App() {
     if (savedMessages) {
       try {
         const parsed = JSON.parse(savedMessages);
-        setMessages(parsed.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) })));
+        setMessages(parsed.map((m: any) => ({ 
+          ...m, 
+          timestamp: new Date(m.timestamp),
+          recalledIds: m.recalledIds || [] // Guard against missing IDs in old storage
+        })));
       } catch (e) { console.error("Failed to parse saved messages", e); }
     }
     if (savedHistory) {
@@ -199,10 +204,14 @@ export default function App() {
   };
 
   const handleMemoryLinkClick = (ids: string[]) => {
+    if (!ids || ids.length === 0) {
+      alert("Intelligence context not available for this message. Try sending a new prompt!");
+      return;
+    }
     setRecalledMemoryIds(new Set(ids));
     setIsMemoryDrawerOpen(true);
-    // Keep them highlighted for a while
-    setTimeout(() => setRecalledMemoryIds(new Set()), 5000);
+    // Highlight persists for 10 seconds or until drawer closes
+    setTimeout(() => setRecalledMemoryIds(new Set()), 10000);
   };
 
   // ─── Reset ───
@@ -217,6 +226,15 @@ export default function App() {
     deactivateBrainFeed("✅ Data reset and re-seeded successfully");
     loadMemories();
     loadDeals();
+  };
+
+  const handleClearChat = () => {
+    if (!confirm("Clear your current chat history? Your memories and deal intelligence will stay safe.")) return;
+    setMessages([]);
+    localStorage.removeItem("dealmind_messages");
+    setConversationHistory([]);
+    localStorage.removeItem("dealmind_history");
+    setActiveModal(null);
   };
 
   return (
@@ -246,6 +264,7 @@ export default function App() {
             setActiveModal("dossier");
             setIsSidebarExpanded(false);
           }}
+          onSettingsClick={() => setActiveModal("settings")}
           deals={deals}
           pipelineStats={pipelineStats}
         />
@@ -285,6 +304,13 @@ export default function App() {
         <DossierModal
           deal={selectedDeal}
           onClose={() => setActiveModal(null)}
+        />
+      )}
+      {activeModal === "settings" && (
+        <SettingsModal
+          onClose={() => setActiveModal(null)}
+          onClearChat={handleClearChat}
+          onResetAll={handleReset}
         />
       )}
     </div>
